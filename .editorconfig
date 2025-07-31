@@ -1,0 +1,19 @@
+[*]
+    indent_style = space
+    indent_size = 2
+    max_line_length = 120
+
+[*.py]
+    indent_size = 4
+    indent_style = space
+
+[*json]
+    indent_size = 2
+    indent_style = space
+
+[{Makefile,**.mk}]
+    indent_size = 4
+    indent_style = tab
+
+[{*.yml,*.yaml}]
+    indent_size = 2

@@ -1,0 +1,6 @@
+import typing as t
+
+
+class PasswordHasher(t.Protocol):
+    def encode(self, password: str, salt: str | bytes | None = None) -> str: ...
+    def verify(self, password: str, encoded: str) -> bool: ...

@@ -1,0 +1,10 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_PASSWORD: guest
+      POSTGRES_USER: guest
+      POSTGRES_DB: guest
+    ports:
+      - "5432:5432"
+    command: --autovacuum=off --fsync=off --synchronous_commit=off --work_mem=12MB --max-connections=10 --max_wal_senders=0
