@@ -24,7 +24,7 @@ async def idp(rs_container: AsyncContainer, db_session: Session) -> SessionIdent
     return SessionIdentityProvider(
         user_repository=user_repo,
         session_repository=session_repo,
-        session_id_getter=t.cast(SessionIDGetter, session_id_getter),
+        session_id_getter=t.cast("SessionIDGetter", session_id_getter),
     )
 
 

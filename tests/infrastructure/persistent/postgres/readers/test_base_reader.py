@@ -34,7 +34,7 @@ def mock_query() -> MockQuery:
 
 
 async def test_fetch_many_raises_value_error_when_table_name_not_defined(mock_connection: Connection) -> None:
-    reader = BaseReader(connection=mock_connection)
+    reader: BaseReader[BaseQuery] = BaseReader(connection=mock_connection)
 
     with pytest.raises(ValueError, match="table_name must be defined in a subclass"):
         await reader.fetch_many(query=AsyncMock())
@@ -96,7 +96,7 @@ async def test_fetch_many_constructs_sql_with_correct_order_by_and_limit(
         table_name = "test_table"
         fields = ["id", "name"]
 
-    mock_connection.fetchval = AsyncMock()
+    mock_connection.fetchval = AsyncMock()  # type: ignore[method-assign]
 
     reader = TestReaderWithAnotherFields(connection=mock_connection)
 

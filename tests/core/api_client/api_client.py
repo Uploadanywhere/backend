@@ -38,7 +38,6 @@ class RequestKwargs(t.TypedDict, total=False):
     extensions: RequestExtensions | None
 
 
-# ruff: noqa: PLR0904, UP044 -- UP044 wants the PEP 646 star syntax for kwargs, unsupported before Python 3.14
 class ApiClient:
     def __init__(self, httpx_client: AsyncClient) -> None:
         self._inner = httpx_client

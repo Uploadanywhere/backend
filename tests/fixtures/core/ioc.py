@@ -2,35 +2,17 @@ import typing as t
 
 import pytest
 from asyncpg import Connection
-from dishka import AsyncContainer, Provider, Scope, make_async_container, provide
+from dishka import AsyncContainer, make_async_container
 from dishka.integrations.litestar import LitestarProvider
 
-from uploadanywhere.application.interfaces.password_hasher import PasswordHasher
-from uploadanywhere.infrastructure.hashers.md5_hasher import MD5PasswordHasher
+from tests.core.ioc import FakeAppProvider
 from uploadanywhere.infrastructure.postgres.engine import Engine
 from uploadanywhere.main.config import Config
-from uploadanywhere.main.ioc import AppProvider, CommandProcessorsProvider
-
-
-class FakeAppProvider(AppProvider):
-    def __init__(self, db: Engine, con: Connection) -> None:
-        super().__init__()
-        self.db = db
-        self.con = con
-
-    @provide(scope=Scope.APP)
-    def get_asyncpg_engine(self) -> Engine:
-        return self.db
-
-    @provide(scope=Scope.REQUEST)
-    def get_connection(self) -> Connection:
-        return self.con
-
-    password_hasher = provide(MD5PasswordHasher, scope=Scope.APP, provides=PasswordHasher)
+from uploadanywhere.main.ioc import CommandProcessorsProvider
 
 
 @pytest.fixture
-def ioc_provider() -> type[Provider]:
+def ioc_provider() -> type[FakeAppProvider]:
     return FakeAppProvider
 
 

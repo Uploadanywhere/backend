@@ -27,14 +27,14 @@ class Engine:
         *,
         use_single_connection: bool = False,
         **kwargs: t.Any,
-    ) -> "Engine":
+    ) -> Engine:
         pool = await create_pool(url, min_size=2, init=cls._set_codecs, **kwargs)  # type: ignore[call-overload]
         return cls(pool, use_single_connection)
 
     async def close(self) -> None:
         await self._pool.close()
 
-    def acquire(self) -> "ConnectionAcquire":
+    def acquire(self) -> ConnectionAcquire:
         return ConnectionAcquire(self)
 
     async def _acquire(self) -> PoolConnectionProxy:
@@ -50,7 +50,7 @@ class Engine:
             self._global_con = None
 
     async def healthcheck(self) -> None:
-        async with self.acquire() as con:  # type: PoolConnectionProxy[t.Any]
+        async with self.acquire() as con:
             await con.execute("SELECT 1")
 
     @staticmethod
@@ -68,7 +68,7 @@ class ConnectionAcquire:
         self.engine = engine
 
     async def __call__(self) -> PoolConnectionProxy:
-        self.con = await self.engine._acquire()  # noqa: SLF001
+        self.con = await self.engine._acquire()  # ruff: ignore[private-member-access]
         return self.con
 
     def __await__(self) -> t.Generator[t.Any, None, PoolConnectionProxy]:

@@ -70,7 +70,7 @@ class BaseReader[Q: BaseQuery]:
             LIMIT {query.limit}
             OFFSET {offset}
         ) as data;
-        """  # noqa: S608  # I KNOW, here can be SQL injections, but I think it's safe here, i wrote test cases for it
+        """  # ruff: ignore[hardcoded-sql-expression]  # I KNOW, here can be SQL injections, but I think it's safe here, i wrote test cases for it
         sql = textwrap.dedent(sql).strip()
 
         return await self._con.fetchval(sql, *values)

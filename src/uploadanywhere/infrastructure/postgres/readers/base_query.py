@@ -30,7 +30,7 @@ class BaseQuery:
             else:
                 if key == "name":
                     conditions.append(f"{key} ILIKE ${len(values) + 1}")
-                    value = f"%{value}%"  # noqa: PLW2901
+                    value = f"%{value}%"  # ruff: ignore[redefined-loop-name]
                 else:
                     conditions.append(f"{key} = ${len(values) + 1}")
                 values.append(value)

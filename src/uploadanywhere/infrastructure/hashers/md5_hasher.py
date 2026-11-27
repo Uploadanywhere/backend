@@ -8,11 +8,11 @@ class MD5PasswordHasher(BasePasswordHasher):
     _algorithm = "md5"
 
     def decode(self, encoded: str) -> dict[str, str | int | None]:
-        algorithm, salt, _hash = encoded.split("$", 2)
+        algorithm, salt, hashed = encoded.split("$", 2)
         assert algorithm == self._algorithm
         return {
             "algorithm": algorithm,
-            "hash": _hash,
+            "hash": hashed,
             "salt": salt,
         }
 
@@ -24,7 +24,7 @@ class MD5PasswordHasher(BasePasswordHasher):
 
         salt = self._force_bytes(salt)
 
-        encoded = hashlib.md5(salt + password.encode("utf-8")).hexdigest()  # noqa: S324
+        encoded = hashlib.md5(salt + password.encode("utf-8")).hexdigest()  # ruff: ignore[hashlib-insecure-hash-function]
         return f"{self._algorithm}${salt.decode('utf-8')}${encoded}"
 
     def verify(self, password: str, encoded: str) -> bool:

@@ -18,7 +18,7 @@ async def db_user(user_factory: UserFactory, user: User) -> User:
 async def db_session(
     session_factory: SessionFactory,
     session: Session,
-    db_user: User,  # This need for correct session creation  # noqa: ARG001
+    db_user: User,  # This need for correct session creation  # ruff: ignore[unused-function-argument]
 ) -> Session:
     await session_factory.create_session(session)
     return session

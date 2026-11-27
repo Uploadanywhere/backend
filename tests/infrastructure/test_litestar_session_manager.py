@@ -20,7 +20,7 @@ async def session_manager(rs_container: AsyncContainer) -> LitestarSessionManage
     session_getter = MagicMock(spec=SessionIDGetter)
     return LitestarSessionManager(
         http_session_manager=raw_session_manager,
-        session_id_getter=t.cast(SessionIDGetter, session_getter),
+        session_id_getter=t.cast("SessionIDGetter", session_getter),
     )
 
 
