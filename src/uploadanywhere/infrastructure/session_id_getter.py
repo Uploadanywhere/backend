@@ -7,5 +7,5 @@ class SessionIDGetterImpl(SessionIDGetter):
     def __init__(self, request: Request) -> None:
         self._request = request
 
-    def get(self) -> None | str:
+    def get(self) -> str | None:
         return self._request.headers.get("session-id")

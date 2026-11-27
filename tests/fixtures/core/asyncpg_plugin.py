@@ -16,7 +16,7 @@ def asyncpg_engine_cls() -> type[Engine]:
     return Engine
 
 
-@pytest_asyncio.fixture()
+@pytest_asyncio.fixture
 async def db(
     request: pytest.FixtureRequest,
     asyncpg_engine_cls: type[Engine],
@@ -26,20 +26,20 @@ async def db(
 
     transactional = getattr(plugin_config, "kwargs", {}).get("transactional", True)
 
-    _db = await asyncpg_engine_cls.create(url=postgres_url, use_single_connection=transactional)
+    engine = await asyncpg_engine_cls.create(url=postgres_url, use_single_connection=transactional)
 
-    con: PoolConnectionProxy = await _db.acquire()
+    con: PoolConnectionProxy = await engine.acquire()
     tr = con.transaction()
     await tr.start()
 
-    yield _db
+    yield engine
 
     await tr.rollback()
-    await _db.release(con, force=transactional)
-    await _db.close()
+    await engine.release(con, force=transactional)
+    await engine.close()
 
 
-@pytest_asyncio.fixture()
+@pytest_asyncio.fixture
 async def con(db: Engine) -> t.AsyncGenerator[PoolConnectionProxy, None]:
-    async with db.acquire() as _con:
-        yield _con
+    async with db.acquire() as connection:
+        yield connection

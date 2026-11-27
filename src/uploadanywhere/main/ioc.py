@@ -55,7 +55,7 @@ class AppProvider(Provider):
     @provide(scope=Scope.REQUEST)
     async def get_connection(self, db: Engine) -> t.AsyncIterable[Connection]:
         async with db.acquire() as connection:
-            yield t.cast(Connection, connection)
+            yield t.cast("Connection", connection)
 
     @provide(scope=Scope.REQUEST)
     def get_registry(self, connection: Connection) -> DataMappersRegistry:

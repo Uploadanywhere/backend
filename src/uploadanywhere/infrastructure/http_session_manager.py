@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
 
 from uuid6 import UUID
@@ -10,13 +11,13 @@ from uploadanywhere.domain.interfaces.session_repository import SessionRepositor
 from uploadanywhere.main.config import AuthConfig
 
 
+@dataclass
 class SessionCookie:
-    def __init__(self, key: str, value: str, httponly: bool, ttl_in_seconds: int, secure: bool) -> None:
-        self.key = key
-        self.value = value
-        self.httponly = httponly
-        self.ttl_in_seconds = ttl_in_seconds
-        self.secure = secure
+    key: str
+    value: str
+    httponly: bool
+    ttl_in_seconds: int
+    secure: bool
 
 
 class HTTPSessionManager:

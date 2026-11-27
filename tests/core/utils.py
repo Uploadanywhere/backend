@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class Any:  # noqa: PLW1641
+class Any:  # ruff: ignore[eq-without-hash]
     typeof: t.Any
 
     def __eq__(self, another: object) -> bool:
@@ -23,7 +23,7 @@ class AiterMock:
     def __init__(self, values: t.Iterable[t.Any]) -> None:
         self.values = iter(values)
 
-    def __aiter__(self) -> "AiterMock":
+    def __aiter__(self) -> AiterMock:
         return self
 
     async def __anext__(self) -> t.Any:
@@ -32,5 +32,5 @@ class AiterMock:
         except StopIteration as e:
             raise StopAsyncIteration from e
 
-    def __call__(self, *args: t.Any, **kwargs: t.Any) -> "AiterMock":
+    def __call__(self, *args: t.Any, **kwargs: t.Any) -> AiterMock:
         return self

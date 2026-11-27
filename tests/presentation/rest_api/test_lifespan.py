@@ -69,7 +69,7 @@ async def test_lifespan_context_manager_does_not_alter_app_state_unexpectedly(mo
 
 
 async def test_lifespan_context_manager_supports_async_operations(mock_app: Litestar) -> None:
-    async def async_operation() -> str:  # noqa: RUF029
+    async def async_operation() -> str:  # ruff: ignore[unused-async]
         return "async operation completed"
 
     async with lifespan(mock_app):

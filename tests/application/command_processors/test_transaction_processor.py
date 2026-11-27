@@ -30,7 +30,7 @@ def uow_mock() -> MockUoW:
 
 
 async def test_transaction_processor(uow_mock: AsyncUoW, mock_processor: MagicMock) -> None:
-    processor = TransactionProcessor(uow_mock, t.cast(CommandProcessor, mock_processor))
+    processor = TransactionProcessor(uow_mock, t.cast("CommandProcessor", mock_processor))
     command = MockCommand()
 
     await processor.process(command)

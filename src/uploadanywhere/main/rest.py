@@ -25,8 +25,10 @@ container = make_async_container(
 
 @asynccontextmanager
 async def lifespan(app: Litestar) -> t.AsyncGenerator[None, None]:
-    yield
-    await app.state.dishka_container.close()
+    try:
+        yield
+    finally:
+        await app.state.dishka_container.close()
 
 
 def create_base_app(debug: bool | None = None) -> Litestar:

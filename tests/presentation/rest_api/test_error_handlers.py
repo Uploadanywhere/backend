@@ -16,7 +16,7 @@ def app(request: pytest.FixtureRequest, app: Litestar) -> Litestar:
         "/not_existing_url_for_test_error_handlers/",
         http_method=["GET", "OPTIONS", "PUT", "PATCH", "HEAD", "POST", "DELETE"],
     )
-    async def json_handler(request: Request) -> Response:  # noqa: ARG001, RUF029
+    async def json_handler(request: Request) -> Response:  # ruff: ignore[unused-function-argument, unused-async]
         if type(error) is Exception:
             raise error
         raise error("Test error")

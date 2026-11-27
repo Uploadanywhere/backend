@@ -10,11 +10,11 @@ class PBKDF2PasswordHasher(BasePasswordHasher):
     _iterations = 1_000_000
 
     def decode(self, encoded: str) -> dict[str, str | int | None]:
-        algorithm, iterations, salt, _hash = encoded.split("$", 3)
+        algorithm, iterations, salt, hashed = encoded.split("$", 3)
         assert algorithm == self._algorithm
         return {
             "algorithm": algorithm,
-            "hash": _hash,
+            "hash": hashed,
             "iterations": int(iterations),
             "salt": salt,
         }
@@ -28,8 +28,8 @@ class PBKDF2PasswordHasher(BasePasswordHasher):
         salt = self._force_bytes(salt)
 
         encoded = hashlib.pbkdf2_hmac(str(self._algorithm), password.encode("utf-8"), salt, self._iterations)
-        _hash = base64.b64encode(encoded).decode("ascii").strip()
-        return f"{self._algorithm}${self._iterations:d}${salt.decode('utf-8')}${_hash!r}"
+        hashed = base64.b64encode(encoded).decode("ascii").strip()
+        return f"{self._algorithm}${self._iterations:d}${salt.decode('utf-8')}${hashed!r}"
 
     def verify(self, password: str, encoded: str) -> bool:
         decoded = self.decode(encoded)

@@ -47,7 +47,7 @@ async def test_create_user_processor(uow: AsyncUoW, processor: CreateUserProcess
         "user_id": result,
         "username": "john_doe",
     }
-    assert db_user["password"] != "password"  # noqa: S105
+    assert db_user["password"] != "password"  # ruff: ignore[hardcoded-password-string]
 
 
 async def test_create_user_processor_generate_unique_id(processor: CreateUserProcessor) -> None:
@@ -110,7 +110,7 @@ async def test_processor_with_transaction_processor_in_chain(
         "user_id": result,
         "username": "john_doe",
     }
-    assert db_user["password"] != "password"  # noqa: S105
+    assert db_user["password"] != "password"  # ruff: ignore[hardcoded-password-string]
 
 
 async def test_processor_raises_exception_for_exists_email(rs_container: AsyncContainer) -> None:

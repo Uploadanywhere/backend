@@ -38,7 +38,7 @@ def test_base_hasher_force_bytes_to_bytes(base_hasher: BasePasswordHasher) -> No
 
 
 def test_base_hasher_check_encode_args_when_password_is_none(base_hasher: BasePasswordHasher) -> None:
-    with pytest.raises(TypeError, match="password must be provided."):
+    with pytest.raises(TypeError, match=r"password must be provided\."):
         base_hasher._check_encode_args(None, "salt")
 
 
