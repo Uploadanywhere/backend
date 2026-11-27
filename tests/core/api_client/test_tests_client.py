@@ -1,10 +1,8 @@
-import typing as t
-
 import pytest
 from httpx import Response
 from litestar import status_codes as status
 
-from tests.core.api_client.api_client import ApiClient
+from tests.core.api_client.api_client import ApiClient, RequestKwargs
 
 _STATE_T = dict[str, str | bytes]
 
@@ -43,7 +41,7 @@ async def test_asserts_for_status_code(api: ApiClient) -> None:
 
 
 @pytest.mark.parametrize("kw", [{"content": '{"k":"v"}'}, {"json": {"k": "v"}}])
-async def test_passed_payload(kw: dict[str, t.Any], api: ApiClient, req: _STATE_T) -> None:
+async def test_passed_payload(kw: RequestKwargs, api: ApiClient, req: _STATE_T) -> None:
     await api.get("/url/", **kw)
 
     assert req["body".replace(" ", "")] == b'{"k":"v"}'
