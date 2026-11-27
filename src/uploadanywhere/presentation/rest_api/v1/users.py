@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from dishka.integrations.litestar import FromDishka, inject
+from dishka.integrations.litestar import FromDishka
 from litestar import Controller, get, patch
 from uuid6 import UUID
 
@@ -23,13 +23,11 @@ class UsersController(Controller):
     path = "/users"
 
     @get(path="/me")
-    @inject
     async def me(self, idp: FromDishka[IdentityProvider]) -> UserDataResponse:
         user_id = await idp.get_current_user_id()
         return UserDataResponse(id=user_id)
 
     @patch("/me")
-    @inject
     async def update_user(
         self,
         data: UserUpdateRequest,

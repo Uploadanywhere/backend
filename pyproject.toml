@@ -6,31 +6,33 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "asyncpg>=0.30.0",
-    "cryptography==44.0.1",
-    "dishka==1.4.2",
-    "editorconfig==0.17.0",
-    "environs==14.1.1",
+    "asyncpg-stubs==0.30.2",
+    "cryptography==45.0.6",
+    "dishka==1.6.0",
+    "editorconfig==0.17.1",
+    "environs==14.3.0",
+    "hatchling>=1.27.0",
     "httpx==0.28.1",
-    "litestar[standard]==2.14.0",
+    "litestar[standard]==2.17.0",
     "msgspec>=0.19",
-    "uuid6>=2024.7.10",
+    "uuid6>=2025.0.1",
 ]
 
 [dependency-groups]
 dev = [
-    "asyncpg-stubs>=0.30.0",
-    "dotenv-linter>=0.5.0",
-    "mypy>=1.13.0",
-    "pytest>=8.3.3",
-    "pytest-asyncio>=0.24.0",
-    "pytest-cov>=6.0.0",
+    "asyncpg-stubs>=0.30.2",
+    "dotenv-linter>=0.7.0",
+    "mypy>=1.17.1",
+    "pytest>=8.4.1",
+    "pytest-asyncio>=1.1.0",
+    "pytest-cov>=6.2.1",
     "pytest-deadfixtures>=2.2.1",
     "pytest-env>=1.1.5",
-    "pytest-freezer>=0.4.8",
-    "pytest-mock>=3.14.0",
+    "pytest-freezer>=0.4.9",
+    "pytest-mock>=3.14.1",
     "pytest-randomly>=3.16.0",
-    "pytest-xdist>=3.6.1",
-    "faker==36.1.1",
+    "pytest-xdist>=3.8.0",
+    "faker==37.5.3",
 ]
 
 [project.scripts]

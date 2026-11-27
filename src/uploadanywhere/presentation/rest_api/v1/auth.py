@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from dishka.integrations.litestar import FromDishka, inject
+from dishka.integrations.litestar import FromDishka
 from litestar import Controller, Response, post, status_codes
 from uuid6 import UUID
 
@@ -33,7 +33,6 @@ class AuthController(Controller):
     path = "/auth"
 
     @post(path="/register")
-    @inject
     async def register(
         self,
         data: UserRequestSchema,
@@ -52,7 +51,6 @@ class AuthController(Controller):
         return response
 
     @post(path="/login")
-    @inject
     async def login(
         self,
         data: LoginRequestSchema,
@@ -65,7 +63,6 @@ class AuthController(Controller):
         return response
 
     @post(path="/logout")
-    @inject
     async def logout(
         self,
         litestar_session_manager: FromDishka[LitestarSessionManager],
